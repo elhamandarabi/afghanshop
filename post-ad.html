@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post Free Ad — AfghanShop</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left"><a href="index.html"><i class="fas fa-home"></i> Home</a></div>
+    <div class="topbar-right">
+      <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="register.html" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+    </div>
+  </div>
+</div>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-afghan">Afghan</span><span class="logo-shop">Shop</span><span class="logo-dot">.com</span>
+    </a>
+    <div style="flex:1;text-align:center;font-size:1rem;font-weight:700;color:var(--green-dark);">
+      <i class="fas fa-plus-circle"></i> Post Your Free Ad
+    </div>
+  </div>
+</header>
+
+<div class="post-ad-page">
+  <div class="container">
+
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Post Free Ad</span>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="step-indicator" id="stepIndicator">
+      <div class="step-ind active" id="step-ind-1"><i class="fas fa-tag"></i> 1. Category</div>
+      <div class="step-ind" id="step-ind-2"><i class="fas fa-edit"></i> 2. Details</div>
+      <div class="step-ind" id="step-ind-3"><i class="fas fa-camera"></i> 3. Photos</div>
+      <div class="step-ind" id="step-ind-4"><i class="fas fa-check"></i> 4. Review</div>
+    </div>
+
+    <div class="post-ad-grid">
+      <div>
+
+        <!-- STEP 1: CATEGORY -->
+        <div class="post-ad-card" id="stepCard1">
+          <h2><i class="fas fa-tag"></i> Choose a Category</h2>
+          <div class="cat-picker" id="catPicker">
+            <button class="cat-pick-btn" onclick="pickCat('Real Estate','🏠')">🏠<br>Real Estate</button>
+            <button class="cat-pick-btn" onclick="pickCat('Vehicles','🚗')">🚗<br>Vehicles</button>
+            <button class="cat-pick-btn" onclick="pickCat('Electronics','💻')">💻<br>Electronics</button>
+            <button class="cat-pick-btn" onclick="pickCat('Jobs','💼')">💼<br>Jobs</button>
+            <button class="cat-pick-btn" onclick="pickCat('Services','🔧')">🔧<br>Services</button>
+            <button class="cat-pick-btn" onclick="pickCat('Fashion','👗')">👗<br>Fashion</button>
+            <button class="cat-pick-btn" onclick="pickCat('Animals','🐾')">🐾<br>Animals</button>
+            <button class="cat-pick-btn" onclick="pickCat('Furniture','🛋️')">🛋️<br>Furniture</button>
+            <button class="cat-pick-btn" onclick="pickCat('Food & Drinks','🍽️')">🍽️<br>Food</button>
+            <button class="cat-pick-btn" onclick="pickCat('Sports','⚽')">⚽<br>Sports</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: DETAILS -->
+        <div class="post-ad-card" id="stepCard2" style="display:none">
+          <h2><i class="fas fa-edit"></i> Ad Details</h2>
+          <form id="adForm" class="auth-form" style="gap:16px;">
+            <div class="form-group">
+              <label><i class="fas fa-tag"></i> Category</label>
+              <input type="text" id="adCat" readonly style="background:#f5f5f5;cursor:default;" />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-heading"></i> Ad Title <small style="color:#aaa">(be specific)</small></label>
+              <input type="text" id="adTitle" placeholder="e.g. iPhone 14 Pro 256GB — Like New" required maxlength="100" oninput="updateCharCount(this,100,'titleCount')" />
+              <small style="color:#aaa;text-align:right;display:block"><span id="titleCount">0</span>/100</small>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label><i class="fas fa-money-bill-wave"></i> Price (AFN)</label>
+                <input type="number" id="adPrice" placeholder="0 = Free / Contact" min="0" />
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-exchange-alt"></i> Negotiable?</label>
+                <select id="adNegotiable">
+                  <option value="yes">Yes, negotiable</option>
+                  <option value="no">Fixed price</option>
+                  <option value="contact">Contact for price</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> Province</label>
+                <select id="adProvince" required>
+                  <option value="">Select province</option>
+                  <option>Kabul</option><option>Herat</option><option>Kandahar</option>
+                  <option>Mazar-i-Sharif</option><option>Jalalabad</option><option>Kunduz</option>
+                  <option>Ghazni</option><option>Bamiyan</option><option>Logar</option><option>Parwan</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label><i class="fas fa-city"></i> District / Area</label>
+                <input type="text" id="adArea" placeholder="e.g. Shar-e-Naw" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-align-left"></i> Description <small style="color:#aaa">(min 30 chars)</small></label>
+              <textarea id="adDesc" rows="5" placeholder="Describe your item in detail — condition, features, reason for selling..." required minlength="30" maxlength="2000" oninput="updateCharCount(this,2000,'descCount')"></textarea>
+              <small style="color:#aaa;text-align:right;display:block"><span id="descCount">0</span>/2000</small>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-phone"></i> Contact Phone</label>
+              <input type="tel" id="adPhone" placeholder="+93 7XX XXX XXX" required />
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-envelope"></i> Contact Email (optional)</label>
+              <input type="email" id="adEmail" placeholder="you@email.com" />
+            </div>
+            <div style="display:flex;gap:10px;margin-top:4px;">
+              <button type="button" class="btn-share" style="flex:1" onclick="goStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+              <button type="button" class="btn-auth" style="flex:2" onclick="goStep(3)">Next: Add Photos <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </form>
+        </div>
+
+        <!-- STEP 3: PHOTOS -->
+        <div class="post-ad-card" id="stepCard3" style="display:none">
+          <h2><i class="fas fa-camera"></i> Add Photos</h2>
+          <p style="font-size:.85rem;color:#666;margin-bottom:16px;">Good photos get 5x more responses. Add up to 8 photos.</p>
+          <div class="img-upload-area" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>Click to upload photos</p>
+            <small>JPG, PNG — max 5MB each — up to 8 photos</small>
+          </div>
+          <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="previewImages(this)" />
+          <div class="img-previews" id="imgPreviews" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;"></div>
+          <div style="display:flex;gap:10px;margin-top:20px;">
+            <button type="button" class="btn-share" style="flex:1" onclick="goStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-auth" style="flex:2" onclick="goStep(4)">Next: Review Ad <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 4: REVIEW -->
+        <div class="post-ad-card" id="stepCard4" style="display:none">
+          <h2><i class="fas fa-check-circle"></i> Review & Submit</h2>
+          <div id="reviewBox" style="background:#f9fffe;border:1px solid #c8e6c9;border-radius:8px;padding:18px;margin-bottom:20px;font-size:.88rem;line-height:2;"></div>
+          <label class="check-label" style="margin-bottom:14px;font-size:.85rem;">
+            <input type="checkbox" id="agreeTerms" />
+            I confirm this ad is accurate and I agree to AfghanShop's <a href="#" style="color:var(--green)">Terms of Use</a>
+          </label>
+          <div style="display:flex;gap:10px;">
+            <button type="button" class="btn-share" style="flex:1" onclick="goStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button type="button" class="btn-auth" style="flex:2;background:var(--green)" onclick="submitAd()"><i class="fas fa-paper-plane"></i> Post Ad for Free</button>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="post-ad-card" id="stepCardSuccess" style="display:none;text-align:center;padding:48px 28px;">
+          <div style="font-size:4rem;margin-bottom:16px;">🎉</div>
+          <h2 style="color:var(--green-dark);border:none;margin-bottom:8px;">Ad Posted Successfully!</h2>
+          <p style="color:#555;margin-bottom:24px;">Your ad is under review and will be live within a few minutes.</p>
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+            <a href="index.html" class="btn-auth" style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-home"></i> Go to Home</a>
+            <a href="post-ad.html" class="btn-share" style="display:inline-flex;align-items:center;gap:6px;"><i class="fas fa-plus"></i> Post Another Ad</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TIPS SIDEBAR -->
+      <div>
+        <div class="tips-card" style="margin-bottom:16px;">
+          <h4><i class="fas fa-lightbulb" style="color:var(--green)"></i> Tips for a Great Ad</h4>
+          <ul>
+            <li><i class="fas fa-check"></i> Use a clear, specific title</li>
+            <li><i class="fas fa-check"></i> Add at least 3 photos</li>
+            <li><i class="fas fa-check"></i> Set a fair, market price</li>
+            <li><i class="fas fa-check"></i> Describe the condition honestly</li>
+            <li><i class="fas fa-check"></i> Include your contact number</li>
+            <li><i class="fas fa-check"></i> Respond to messages quickly</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box" style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;">
+          <h3 style="font-size:.9rem;font-weight:700;color:var(--green-dark);margin-bottom:10px;"><i class="fas fa-star"></i> Boost Your Ad</h3>
+          <p style="font-size:.8rem;color:#666;line-height:1.6;margin-bottom:10px;">Get 10x more views with a Featured Ad. Appear at the top of search results.</p>
+          <button style="width:100%;background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;border:none;border-radius:6px;padding:9px;font-size:.85rem;font-weight:700;cursor:pointer;">
+            <i class="fas fa-rocket"></i> Boost for 200 AFN/day
+          </button>
+        </div>
+
+        <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:var(--radius);padding:14px;margin-top:14px;">
+          <h4 style="font-size:.83rem;font-weight:700;color:#b7791f;margin-bottom:6px;"><i class="fas fa-shield-alt"></i> Posting Rules</h4>
+          <ul style="list-style:none;font-size:.78rem;color:#666;display:flex;flex-direction:column;gap:5px;">
+            <li>❌ No illegal items</li>
+            <li>❌ No duplicate ads</li>
+            <li>❌ No misleading info</li>
+            <li>✅ Real photos only</li>
+            <li>✅ Accurate descriptions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-bottom" style="border-top:none;">
+    <div class="container">
+      <p>© 2026 AfghanShop.com — All Rights Reserved</p>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="globalToast"></div>
+
+<style>
+.cat-picker { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.cat-pick-btn { background: #f9fffe; border: 2px solid var(--border); border-radius: 10px; padding: 14px 8px; font-size: .78rem; cursor: pointer; text-align: center; line-height: 1.6; transition: all .2s; color: #333; }
+.cat-pick-btn:hover, .cat-pick-btn.selected { border-color: var(--green); background: #e8f5e9; color: var(--green-dark); font-weight: 700; }
+.img-preview-thumb { width: 80px; height: 70px; border-radius: 8px; overflow: hidden; position: relative; border: 2px solid var(--border); }
+.img-preview-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.img-preview-thumb .rm { position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,.6); color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: .65rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 480px) { .cat-picker { grid-template-columns: repeat(3, 1fr); } }
+</style>
+
+<script>
+let currentStep = 1;
+let selectedCat = '';
+
+function goStep(n) {
+  document.getElementById('stepCard' + currentStep).style.display = 'none';
+  if (n === 4) fillReview();
+  currentStep = n;
+  document.getElementById('stepCard' + n).style.display = 'block';
+  document.querySelectorAll('.step-ind').forEach((el, i) => el.classList.toggle('active', i < n));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pickCat(name, icon) {
+  selectedCat = name;
+  document.querySelectorAll('.cat-pick-btn').forEach(b => b.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  setTimeout(() => {
+    document.getElementById('adCat').value = icon + ' ' + name;
+    goStep(2);
+  }, 200);
+}
+
+function updateCharCount(el, max, countId) {
+  document.getElementById(countId).textContent = el.value.length;
+}
+
+function previewImages(input) {
+  const container = document.getElementById('imgPreviews');
+  const files = Array.from(input.files).slice(0, 8);
+  files.forEach((file, i) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const div = document.createElement('div');
+      div.className = 'img-preview-thumb';
+      div.innerHTML = `<img src="${e.target.result}" /><button class="rm" onclick="this.parentElement.remove()">×</button>`;
+      container.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function fillReview() {
+  const title = document.getElementById('adTitle').value || '(not set)';
+  const price = document.getElementById('adPrice').value;
+  const prov = document.getElementById('adProvince').value || '(not set)';
+  const area = document.getElementById('adArea').value;
+  const desc = document.getElementById('adDesc').value || '(not set)';
+  const phone = document.getElementById('adPhone').value || '(not set)';
+  const neg = document.getElementById('adNegotiable').value;
+  const priceStr = price ? Number(price).toLocaleString() + ' AFN' + (neg === 'yes' ? ' (negotiable)' : '') : 'Contact for price';
+  document.getElementById('reviewBox').innerHTML = `
+    <strong>Category:</strong> ${selectedCat || document.getElementById('adCat').value}<br>
+    <strong>Title:</strong> ${title}<br>
+    <strong>Price:</strong> ${priceStr}<br>
+    <strong>Location:</strong> ${prov}${area ? ', ' + area : ''}<br>
+    <strong>Phone:</strong> ${phone}<br>
+    <strong>Description:</strong> ${desc.substring(0,120)}${desc.length > 120 ? '...' : ''}
+  `;
+}
+
+function submitAd() {
+  if (!document.getElementById('agreeTerms').checked) {
+    const t = document.getElementById('globalToast');
+    t.textContent = 'Please agree to the Terms of Use first.';
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+    return;
+  }
+  document.getElementById('stepCard4').style.display = 'none';
+  document.getElementById('stepCardSuccess').style.display = 'block';
+  document.querySelectorAll('.step-ind').forEach(el => el.classList.add('active'));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AfghanShop - Afghanistan's #1 Classifieds Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-left">
+      <a href="#"><i class="fas fa-mobile-alt"></i> Download App</a>
+      <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+    </div>
+    <div class="topbar-right">
+      <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+      <a href="register.html" class="btn-register"><i class="fas fa-user-plus"></i> Register</a>
+      <span class="lang-toggle" onclick="toggleLang()">🌐 English | دری</span>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-afghan">Afghan</span><span class="logo-shop">Shop</span>
+      <span class="logo-dot">.com</span>
+    </a>
+
+    <div class="search-bar">
+      <div class="search-cat">
+        <select>
+          <option>All Categories</option>
+          <option>Real Estate</option>
+          <option>Vehicles</option>
+          <option>Electronics</option>
+          <option>Jobs</option>
+          <option>Services</option>
+          <option>Fashion</option>
+          <option>Animals</option>
+        </select>
+      </div>
+      <input type="text" placeholder="What are you looking for?" class="search-input" id="searchInput" />
+      <div class="search-loc">
+        <input type="text" placeholder="City / Province" id="locationInput" />
+      </div>
+      <button class="search-btn" onclick="doSearch()"><i class="fas fa-search"></i> Search</button>
+    </div>
+
+    <a href="post-ad.html" class="btn-post-ad">
+      <i class="fas fa-plus-circle"></i> Post Free Ad
+    </a>
+  </div>
+</header>
+
+<!-- CATEGORY NAV -->
+<nav class="cat-nav">
+  <div class="container cat-nav-inner">
+    <a href="listings.html?cat=real-estate" class="cat-link"><i class="fas fa-home"></i> Real Estate</a>
+    <a href="listings.html?cat=vehicles" class="cat-link"><i class="fas fa-car"></i> Vehicles</a>
+    <a href="listings.html?cat=electronics" class="cat-link"><i class="fas fa-laptop"></i> Electronics</a>
+    <a href="listings.html?cat=jobs" class="cat-link"><i class="fas fa-briefcase"></i> Jobs</a>
+    <a href="listings.html?cat=services" class="cat-link"><i class="fas fa-tools"></i> Services</a>
+    <a href="listings.html?cat=fashion" class="cat-link"><i class="fas fa-tshirt"></i> Fashion</a>
+    <a href="listings.html?cat=animals" class="cat-link"><i class="fas fa-paw"></i> Animals</a>
+    <a href="listings.html?cat=furniture" class="cat-link"><i class="fas fa-couch"></i> Furniture</a>
+    <a href="listings.html?cat=food" class="cat-link"><i class="fas fa-utensils"></i> Food</a>
+    <a href="listings.html?cat=sports" class="cat-link"><i class="fas fa-futbol"></i> Sports</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<section class="hero-banner">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active" style="background: linear-gradient(135deg,#1a3a1a,#2d6a2d);">
+      <div class="hero-content">
+        <h2>Buy & Sell Anything in Afghanistan</h2>
+        <p>Millions of listings. Trusted sellers. Free to post.</p>
+        <a href="post-ad.html" class="btn-hero">Post Your Ad Now</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background: linear-gradient(135deg,#8b1a1a,#c0392b);">
+      <div class="hero-content">
+        <h2>Find Your Dream Home</h2>
+        <p>Thousands of properties across all 34 provinces.</p>
+        <a href="listings.html?cat=real-estate" class="btn-hero">Browse Properties</a>
+      </div>
+    </div>
+    <div class="hero-slide" style="background: linear-gradient(135deg,#1a1a2e,#16213e);">
+      <div class="hero-content">
+        <h2>New & Used Vehicles</h2>
+        <p>Cars, motorcycles, trucks — find the best deals.</p>
+        <a href="listings.html?cat=vehicles" class="btn-hero">Browse Vehicles</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <span class="dot active" onclick="goSlide(0)"></span>
+    <span class="dot" onclick="goSlide(1)"></span>
+    <span class="dot" onclick="goSlide(2)"></span>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container stats-inner">
+    <div class="stat"><i class="fas fa-list"></i><strong id="stat-ads">0</strong> Active Ads</div>
+    <div class="stat"><i class="fas fa-users"></i><strong id="stat-users">0</strong> Registered Users</div>
+    <div class="stat"><i class="fas fa-map-marker-alt"></i><strong id="stat-cities">34</strong> Provinces</div>
+    <div class="stat"><i class="fas fa-handshake"></i><strong id="stat-deals">0</strong> Deals Made</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+  <div class="container main-grid">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-box">
+        <h3>Browse by Category</h3>
+        <ul class="sidebar-cats">
+          <li><a href="listings.html?cat=real-estate"><i class="fas fa-home"></i> Real Estate <span class="count">12,450</span></a></li>
+          <li><a href="listings.html?cat=vehicles"><i class="fas fa-car"></i> Vehicles <span class="count">8,320</span></a></li>
+          <li><a href="listings.html?cat=electronics"><i class="fas fa-laptop"></i> Electronics <span class="count">15,670</span></a></li>
+          <li><a href="listings.html?cat=jobs"><i class="fas fa-briefcase"></i> Jobs <span class="count">4,200</span></a></li>
+          <li><a href="listings.html?cat=services"><i class="fas fa-tools"></i> Services <span class="count">3,100</span></a></li>
+          <li><a href="listings.html?cat=fashion"><i class="fas fa-tshirt"></i> Fashion <span class="count">9,800</span></a></li>
+          <li><a href="listings.html?cat=animals"><i class="fas fa-paw"></i> Animals <span class="count">2,340</span></a></li>
+          <li><a href="listings.html?cat=furniture"><i class="fas fa-couch"></i> Furniture <span class="count">5,670</span></a></li>
+          <li><a href="listings.html?cat=food"><i class="fas fa-utensils"></i> Food & Drinks <span class="count">1,890</span></a></li>
+          <li><a href="listings.html?cat=sports"><i class="fas fa-futbol"></i> Sports <span class="count">3,400</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-box">
+        <h3>Browse by Province</h3>
+        <div class="province-grid">
+          <a href="#">Kabul</a><a href="#">Herat</a><a href="#">Kandahar</a>
+          <a href="#">Mazar</a><a href="#">Jalalabad</a><a href="#">Kunduz</a>
+          <a href="#">Ghazni</a><a href="#">Bamiyan</a><a href="#">Logar</a>
+          <a href="#">Parwan</a><a href="#">Kapisa</a><a href="#">Panjshir</a>
+        </div>
+        <a href="#" class="see-all-link">View all 34 provinces →</a>
+      </div>
+
+      <div class="sidebar-box sidebar-ad">
+        <div class="ad-placeholder">
+          <i class="fas fa-ad"></i>
+          <p>Advertise Here</p>
+          <small>Reach millions of buyers</small>
+        </div>
+      </div>
+    </aside>
+
+    <!-- LISTINGS AREA -->
+    <div class="listings-area">
+
+      <!-- FEATURED ADS -->
+      <section class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-star"></i> Featured Ads</h2>
+          <a href="listings.html?type=featured" class="see-all">See All →</a>
+        </div>
+        <div class="listings-grid" id="featuredGrid">
+          <!-- JS will populate -->
+        </div>
+      </section>
+
+      <!-- RECENT ADS -->
+      <section class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-clock"></i> Latest Listings</h2>
+          <div class="view-toggle">
+            <button class="view-btn active" onclick="setView('grid','latestGrid',this)"><i class="fas fa-th"></i></button>
+            <button class="view-btn" onclick="setView('list','latestGrid',this)"><i class="fas fa-list"></i></button>
+          </div>
+          <a href="listings.html" class="see-all">See All →</a>
+        </div>
+        <div class="listings-grid" id="latestGrid">
+          <!-- JS will populate -->
+        </div>
+      </section>
+
+      <!-- REAL ESTATE SECTION -->
+      <section class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-home"></i> Real Estate</h2>
+          <a href="listings.html?cat=real-estate" class="see-all">See All →</a>
+        </div>
+        <div class="listings-grid" id="realEstateGrid">
+          <!-- JS will populate -->
+        </div>
+      </section>
+
+      <!-- VEHICLES SECTION -->
+      <section class="section">
+        <div class="section-header">
+          <h2><i class="fas fa-car"></i> Vehicles</h2>
+          <a href="listings.html?cat=vehicles" class="see-all">See All →</a>
+        </div>
+        <div class="listings-grid" id="vehiclesGrid">
+          <!-- JS will populate -->
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works">
+  <div class="container">
+    <h2 class="section-title">How AfghanShop Works</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-camera"></i></div>
+        <h3>1. Post Your Ad</h3>
+        <p>Take a photo, write a description, and post your ad for free in minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-comments"></i></div>
+        <h3>2. Connect with Buyers</h3>
+        <p>Receive messages and calls from interested buyers directly.</p>
+      </div>
+      <div class="step">
+        <div class="step-icon"><i class="fas fa-handshake"></i></div>
+        <h3>3. Close the Deal</h3>
+        <p>Meet safely, agree on price, and complete your transaction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE APP BANNER -->
+<section class="app-banner">
+  <div class="container app-banner-inner">
+    <div class="app-text">
+      <h2>AfghanShop on Your Phone</h2>
+      <p>Buy and sell on the go. Available for Android and iOS.</p>
+      <div class="app-btns">
+        <a href="#" class="app-btn"><i class="fab fa-google-play"></i> Google Play</a>
+        <a href="#" class="app-btn"><i class="fab fa-apple"></i> App Store</a>
+      </div>
+    </div>
+    <div class="app-phone">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-logo">Afghan<span>Shop</span></div>
+          <div class="phone-search-bar"></div>
+          <div class="phone-cards">
+            <div class="phone-card"></div>
+            <div class="phone-card"></div>
+            <div class="phone-card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">Afghan<span>Shop</span>.com</div>
+      <p>Afghanistan's #1 free online classifieds marketplace. Buy and sell anything safely.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#">Real Estate</a></li>
+        <li><a href="#">Vehicles</a></li>
+        <li><a href="#">Electronics</a></li>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Fashion</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Post Free Ad</a></li>
+        <li><a href="#">Login / Register</a></li>
+        <li><a href="#">My Account</a></li>
+        <li><a href="#">My Ads</a></li>
+        <li><a href="#">Favorites</a></li>
+        <li><a href="#">Messages</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help & Info</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Safety Tips</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Advertise</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="contact-list">
+        <li><i class="fas fa-phone"></i> +93 700 000 000</li>
+        <li><i class="fas fa-envelope"></i> info@afghanshop.com</li>
+        <li><i class="fas fa-map-marker-alt"></i> Kabul, Afghanistan</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2026 AfghanShop.com — All Rights Reserved</p>
+      <p>Made with <i class="fas fa-heart" style="color:#c0392b"></i> for Afghanistan</p>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- POST AD MODAL (quick post) -->
+<div class="modal-overlay" id="quickPostModal" style="display:none">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <h2>Post Your Free Ad</h2>
+    <form class="post-form" onsubmit="submitAd(event)">
+      <label>Category</label>
+      <select required>
+        <option value="">Select category</option>
+        <option>Real Estate</option>
+        <option>Vehicles</option>
+        <option>Electronics</option>
+        <option>Jobs</option>
+        <option>Services</option>
+        <option>Fashion</option>
+      </select>
+      <label>Title</label>
+      <input type="text" placeholder="e.g. iPhone 14 Pro — like new" required />
+      <label>Price (AFN)</label>
+      <input type="number" placeholder="0 for free / price negotiable" />
+      <label>Province</label>
+      <select required>
+        <option value="">Select province</option>
+        <option>Kabul</option><option>Herat</option><option>Kandahar</option>
+        <option>Mazar-i-Sharif</option><option>Jalalabad</option>
+      </select>
+      <label>Description</label>
+      <textarea rows="4" placeholder="Describe your item..." required></textarea>
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+93 7XX XXX XXX" required />
+      <button type="submit" class="btn-submit-ad">Post Ad for Free</button>
+    </form>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

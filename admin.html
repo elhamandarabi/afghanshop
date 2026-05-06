@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — AfghanShop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span>Afghan<em>Shop</em></span>
+    <small>Admin Panel</small>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section">MAIN</div>
+    <a href="#" class="nav-item active" onclick="showPage('dashboard',this)"><i class="fas fa-th-large"></i> Dashboard</a>
+    <a href="#" class="nav-item" onclick="showPage('listings',this)"><i class="fas fa-list"></i> All Listings <span class="nav-badge">248</span></a>
+    <a href="#" class="nav-item" onclick="showPage('pending',this)"><i class="fas fa-clock"></i> Pending Approval <span class="nav-badge red">18</span></a>
+    <a href="#" class="nav-item" onclick="showPage('users',this)"><i class="fas fa-users"></i> Users</a>
+    <a href="#" class="nav-item" onclick="showPage('reports',this)"><i class="fas fa-flag"></i> Reports <span class="nav-badge red">5</span></a>
+
+    <div class="nav-section">CONTENT</div>
+    <a href="#" class="nav-item" onclick="showPage('categories',this)"><i class="fas fa-tags"></i> Categories</a>
+    <a href="#" class="nav-item" onclick="showPage('banners',this)"><i class="fas fa-images"></i> Banners</a>
+    <a href="#" class="nav-item" onclick="showPage('featured',this)"><i class="fas fa-star"></i> Featured Ads</a>
+
+    <div class="nav-section">ANALYTICS</div>
+    <a href="#" class="nav-item" onclick="showPage('analytics',this)"><i class="fas fa-chart-bar"></i> Analytics</a>
+    <a href="#" class="nav-item" onclick="showPage('revenue',this)"><i class="fas fa-money-bill-wave"></i> Revenue</a>
+
+    <div class="nav-section">SETTINGS</div>
+    <a href="#" class="nav-item" onclick="showPage('settings',this)"><i class="fas fa-cog"></i> Site Settings</a>
+    <a href="#" class="nav-item" onclick="showPage('admins',this)"><i class="fas fa-user-shield"></i> Admin Users</a>
+    <a href="index.html" class="nav-item" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
+    <a href="admin-login.html" class="nav-item logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main-wrap">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <div class="topbar-title" id="pageTitle">Dashboard</div>
+    <div class="topbar-right">
+      <button class="icon-btn" title="Notifications" onclick="showToast('You have 5 new reports')"><i class="fas fa-bell"></i><span class="dot-badge">5</span></button>
+      <button class="icon-btn" title="Messages" onclick="showToast('3 new messages')"><i class="fas fa-envelope"></i><span class="dot-badge">3</span></button>
+      <div class="admin-avatar" title="Admin">A</div>
+      <div class="admin-info">
+        <strong>Admin</strong>
+        <small>Super Admin</small>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGES -->
+  <div class="content" id="content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h1>Dashboard Overview</h1>
+        <span class="date-badge"><i class="fas fa-calendar"></i> Today, May 6 2026</span>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="stats-grid">
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fas fa-list"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-target="62480">0</div>
+            <div class="stat-label">Total Listings</div>
+            <div class="stat-change up"><i class="fas fa-arrow-up"></i> +124 today</div>
+          </div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-target="215340">0</div>
+            <div class="stat-label">Total Users</div>
+            <div class="stat-change up"><i class="fas fa-arrow-up"></i> +38 today</div>
+          </div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-target="18">0</div>
+            <div class="stat-label">Pending Approval</div>
+            <div class="stat-change down"><i class="fas fa-arrow-down"></i> needs review</div>
+          </div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon"><i class="fas fa-flag"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-target="5">0</div>
+            <div class="stat-label">New Reports</div>
+            <div class="stat-change down"><i class="fas fa-exclamation"></i> action needed</div>
+          </div>
+        </div>
+        <div class="stat-card purple">
+          <div class="stat-icon"><i class="fas fa-eye"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-target="84320">0</div>
+            <div class="stat-label">Page Views Today</div>
+            <div class="stat-change up"><i class="fas fa-arrow-up"></i> +12% vs yesterday</div>
+          </div>
+        </div>
+        <div class="stat-card teal">
+          <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+          <div class="stat-info">
+            <div class="stat-num" data-prefix="₼" data-target="142000">0</div>
+            <div class="stat-label">Revenue (AFN)</div>
+            <div class="stat-change up"><i class="fas fa-arrow-up"></i> +8% this month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <!-- RECENT LISTINGS -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3><i class="fas fa-list"></i> Recent Listings</h3>
+            <button class="btn-sm" onclick="showPage('listings',null)">View All</button>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Title</th><th>Category</th><th>User</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="recentListingsTbody"></tbody>
+          </table>
+        </div>
+
+        <!-- QUICK STATS -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3><i class="fas fa-chart-pie"></i> Ads by Category</h3>
+          </div>
+          <div class="cat-chart" id="catChart"></div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <!-- RECENT USERS -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3><i class="fas fa-users"></i> New Users</h3>
+            <button class="btn-sm" onclick="showPage('users',null)">View All</button>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Name</th><th>Province</th><th>Joined</th><th>Ads</th><th>Status</th></tr></thead>
+            <tbody id="recentUsersTbody"></tbody>
+          </table>
+        </div>
+
+        <!-- ACTIVITY FEED -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <h3><i class="fas fa-stream"></i> Live Activity</h3>
+          </div>
+          <div class="activity-feed" id="activityFeed"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ALL LISTINGS ===== -->
+    <div class="page" id="page-listings">
+      <div class="page-header">
+        <h1>All Listings</h1>
+        <button class="btn-primary" onclick="showToast('Export feature coming soon!')"><i class="fas fa-download"></i> Export CSV</button>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="Search listings..." class="search-in" id="listSearch" oninput="filterListings()" />
+        <select id="listCatFilter" onchange="filterListings()">
+          <option value="">All Categories</option>
+          <option>Real Estate</option><option>Vehicles</option><option>Electronics</option>
+          <option>Jobs</option><option>Services</option><option>Fashion</option>
+        </select>
+        <select id="listStatusFilter" onchange="filterListings()">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <select id="listProvinceFilter" onchange="filterListings()">
+          <option value="">All Provinces</option>
+          <option>Kabul</option><option>Herat</option><option>Kandahar</option><option>Mazar</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table full">
+          <thead><tr><th><input type="checkbox" onchange="selectAll(this)"></th><th>#</th><th>Title</th><th>Category</th><th>Price</th><th>Province</th><th>User</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="allListingsTbody"></tbody>
+        </table>
+      </div>
+      <div class="table-footer">
+        <span id="listCount">Showing 0 listings</span>
+        <div class="pagination" id="listPagination"></div>
+      </div>
+    </div>
+
+    <!-- ===== PENDING ===== -->
+    <div class="page" id="page-pending">
+      <div class="page-header">
+        <h1>Pending Approval</h1>
+        <button class="btn-success" onclick="approveAll()"><i class="fas fa-check-double"></i> Approve All</button>
+      </div>
+      <div class="pending-grid" id="pendingGrid"></div>
+    </div>
+
+    <!-- ===== USERS ===== -->
+    <div class="page" id="page-users">
+      <div class="page-header">
+        <h1>User Management</h1>
+        <button class="btn-primary" onclick="showToast('Export feature coming soon!')"><i class="fas fa-download"></i> Export CSV</button>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="Search users..." class="search-in" oninput="filterUsers(this.value)" />
+        <select onchange="filterUsers(null,this.value)">
+          <option value="">All Provinces</option>
+          <option>Kabul</option><option>Herat</option><option>Kandahar</option><option>Mazar</option>
+        </select>
+        <select onchange="filterUsers(null,null,this.value)">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="banned">Banned</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table full">
+          <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Province</th><th>Joined</th><th>Ads</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="usersTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== REPORTS ===== -->
+    <div class="page" id="page-reports">
+      <div class="page-header"><h1>Reported Listings</h1></div>
+      <div class="table-wrap">
+        <table class="admin-table full">
+          <thead><tr><th>#</th><th>Listing</th><th>Reported By</th><th>Reason</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="reportsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== CATEGORIES ===== -->
+    <div class="page" id="page-categories">
+      <div class="page-header">
+        <h1>Categories</h1>
+        <button class="btn-primary" onclick="addCategory()"><i class="fas fa-plus"></i> Add Category</button>
+      </div>
+      <div class="cat-manager" id="catManager"></div>
+    </div>
+
+    <!-- ===== BANNERS ===== -->
+    <div class="page" id="page-banners">
+      <div class="page-header">
+        <h1>Banner Management</h1>
+        <button class="btn-primary"><i class="fas fa-plus"></i> Add Banner</button>
+      </div>
+      <div class="banners-grid" id="bannersGrid"></div>
+    </div>
+
+    <!-- ===== FEATURED ===== -->
+    <div class="page" id="page-featured">
+      <div class="page-header"><h1>Featured Ads</h1></div>
+      <div class="table-wrap">
+        <table class="admin-table full">
+          <thead><tr><th>#</th><th>Title</th><th>User</th><th>Featured From</th><th>Featured Until</th><th>Package</th><th>Actions</th></tr></thead>
+          <tbody id="featuredTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== ANALYTICS ===== -->
+    <div class="page" id="page-analytics">
+      <div class="page-header"><h1>Analytics</h1></div>
+      <div class="stats-grid" style="margin-bottom:24px;">
+        <div class="stat-card green"><div class="stat-icon"><i class="fas fa-eye"></i></div><div class="stat-info"><div class="stat-num">84,320</div><div class="stat-label">Views Today</div></div></div>
+        <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-mouse-pointer"></i></div><div class="stat-info"><div class="stat-num">12,450</div><div class="stat-label">Clicks Today</div></div></div>
+        <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-search"></i></div><div class="stat-info"><div class="stat-num">38,200</div><div class="stat-label">Searches Today</div></div></div>
+        <div class="stat-card purple"><div class="stat-icon"><i class="fas fa-mobile-alt"></i></div><div class="stat-info"><div class="stat-num">68%</div><div class="stat-label">Mobile Users</div></div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-card-header"><h3><i class="fas fa-chart-line"></i> Weekly Visits</h3></div>
+          <div class="bar-chart" id="weeklyChart"></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-header"><h3><i class="fas fa-map-marker-alt"></i> Top Provinces</h3></div>
+          <div class="province-stats" id="provinceStats"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== REVENUE ===== -->
+    <div class="page" id="page-revenue">
+      <div class="page-header"><h1>Revenue</h1></div>
+      <div class="stats-grid" style="margin-bottom:24px;">
+        <div class="stat-card green"><div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div><div class="stat-info"><div class="stat-num">142,000 AFN</div><div class="stat-label">This Month</div><div class="stat-change up"><i class="fas fa-arrow-up"></i> +8%</div></div></div>
+        <div class="stat-card blue"><div class="stat-icon"><i class="fas fa-star"></i></div><div class="stat-info"><div class="stat-num">48,000 AFN</div><div class="stat-label">Featured Ads</div></div></div>
+        <div class="stat-card orange"><div class="stat-icon"><i class="fas fa-ad"></i></div><div class="stat-info"><div class="stat-num">94,000 AFN</div><div class="stat-label">Banner Ads</div></div></div>
+        <div class="stat-card purple"><div class="stat-icon"><i class="fas fa-crown"></i></div><div class="stat-info"><div class="stat-num">24</div><div class="stat-label">Premium Users</div></div></div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-header"><h3><i class="fas fa-receipt"></i> Recent Transactions</h3></div>
+        <table class="admin-table full">
+          <thead><tr><th>#</th><th>User</th><th>Package</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="revenueTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="page" id="page-settings">
+      <div class="page-header"><h1>Site Settings</h1></div>
+      <div class="settings-grid">
+        <div class="dash-card">
+          <div class="dash-card-header"><h3><i class="fas fa-globe"></i> General Settings</h3></div>
+          <div class="settings-form">
+            <div class="sf-group"><label>Site Name</label><input type="text" value="AfghanShop.com" /></div>
+            <div class="sf-group"><label>Site Tagline</label><input type="text" value="Afghanistan's #1 Marketplace" /></div>
+            <div class="sf-group"><label>Contact Email</label><input type="email" value="info@afghanshop.com" /></div>
+            <div class="sf-group"><label>Contact Phone</label><input type="text" value="+93 700 000 000" /></div>
+            <div class="sf-group"><label>Default Language</label><select><option>English</option><option>Dari</option><option>Pashto</option></select></div>
+            <div class="sf-group"><label>Currency</label><select><option>AFN (Afghani)</option><option>USD</option></select></div>
+            <button class="btn-primary" onclick="showToast('Settings saved successfully!')"><i class="fas fa-save"></i> Save Settings</button>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-header"><h3><i class="fas fa-shield-alt"></i> Security Settings</h3></div>
+          <div class="settings-form">
+            <div class="sf-group"><label>Require Ad Approval</label><div class="toggle-wrap"><input type="checkbox" id="tog1" checked /><label for="tog1" class="toggle"></label><span>Yes</span></div></div>
+            <div class="sf-group"><label>Allow Registration</label><div class="toggle-wrap"><input type="checkbox" id="tog2" checked /><label for="tog2" class="toggle"></label><span>Yes</span></div></div>
+            <div class="sf-group"><label>Phone Verification</label><div class="toggle-wrap"><input type="checkbox" id="tog3" /><label for="tog3" class="toggle"></label><span>No</span></div></div>
+            <div class="sf-group"><label>Max Ads Per User</label><input type="number" value="20" /></div>
+            <div class="sf-group"><label>Ad Expiry (days)</label><input type="number" value="30" /></div>
+            <div class="sf-group"><label>Admin Password</label><input type="password" placeholder="New password" /></div>
+            <button class="btn-primary" onclick="showToast('Security settings saved!')"><i class="fas fa-save"></i> Save Settings</button>
+          </div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-header"><h3><i class="fas fa-envelope"></i> Email & Notifications</h3></div>
+          <div class="settings-form">
+            <div class="sf-group"><label>New Ad Alert</label><div class="toggle-wrap"><input type="checkbox" id="tog4" checked /><label for="tog4" class="toggle"></label><span>On</span></div></div>
+            <div class="sf-group"><label>New User Alert</label><div class="toggle-wrap"><input type="checkbox" id="tog5" checked /><label for="tog5" class="toggle"></label><span>On</span></div></div>
+            <div class="sf-group"><label>Report Alert</label><div class="toggle-wrap"><input type="checkbox" id="tog6" checked /><label for="tog6" class="toggle"></label><span>On</span></div></div>
+            <div class="sf-group"><label>SMTP Host</label><input type="text" value="smtp.gmail.com" /></div>
+            <div class="sf-group"><label>SMTP Email</label><input type="email" value="noreply@afghanshop.com" /></div>
+            <button class="btn-primary" onclick="showToast('Email settings saved!')"><i class="fas fa-save"></i> Save Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ADMINS ===== -->
+    <div class="page" id="page-admins">
+      <div class="page-header">
+        <h1>Admin Users</h1>
+        <button class="btn-primary" onclick="showToast('Add admin feature coming soon!')"><i class="fas fa-plus"></i> Add Admin</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table full">
+          <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Role</th><th>Last Login</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td><div class="user-cell"><div class="u-avatar" style="background:#1e7e34">A</div><div><strong>Admin</strong><small>Super Admin</small></div></div></td><td>admin@afghanshop.com</td><td><span class="badge-role super">Super Admin</span></td><td>Just now</td><td><span class="status-badge active">Active</span></td><td><button class="act-btn edit" onclick="showToast('Edit admin')"><i class="fas fa-edit"></i></button></td></tr>
+            <tr><td>2</td><td><div class="user-cell"><div class="u-avatar" style="background:#2196f3">M</div><div><strong>Mohammad</strong><small>Moderator</small></div></div></td><td>mod@afghanshop.com</td><td><span class="badge-role mod">Moderator</span></td><td>2 hours ago</td><td><span class="status-badge active">Active</span></td><td><button class="act-btn edit" onclick="showToast('Edit moderator')"><i class="fas fa-edit"></i></button><button class="act-btn del" onclick="showToast('Remove moderator?')"><i class="fas fa-trash"></i></button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end content -->
+</div><!-- end main-wrap -->
+
+<!-- CONFIRMATION MODAL -->
+<div class="modal-overlay" id="confirmModal" style="display:none">
+  <div class="modal-box">
+    <div class="modal-icon" id="modalIcon"></div>
+    <h3 id="modalTitle">Are you sure?</h3>
+    <p id="modalMsg"></p>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-confirm" id="confirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="adminToast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

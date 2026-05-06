@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — AfghanShop</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body class="auth-body">
+
+<div class="auth-header">
+  <a href="index.html" class="logo">
+    <span class="logo-afghan">Afghan</span><span class="logo-shop">Shop</span><span class="logo-dot">.com</span>
+  </a>
+</div>
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Create Account</h1>
+    <p class="auth-sub">Join AfghanShop — it's completely free!</p>
+
+    <div class="social-auth">
+      <button class="social-btn google"><i class="fab fa-google"></i> Sign up with Google</button>
+      <button class="social-btn facebook"><i class="fab fa-facebook-f"></i> Sign up with Facebook</button>
+    </div>
+    <div class="auth-divider"><span>or register with email</span></div>
+
+    <form class="auth-form" onsubmit="handleRegister(event)">
+      <div class="form-row-2" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> First Name</label>
+          <input type="text" placeholder="Ahmad" required />
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Last Name</label>
+          <input type="text" placeholder="Karimi" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Email Address</label>
+        <input type="email" placeholder="you@email.com" required />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-phone"></i> Phone Number</label>
+        <input type="tel" placeholder="+93 7XX XXX XXX" required />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-map-marker-alt"></i> Province</label>
+        <select required>
+          <option value="">Select your province</option>
+          <option>Kabul</option><option>Herat</option><option>Kandahar</option>
+          <option>Mazar-i-Sharif</option><option>Jalalabad</option><option>Kunduz</option>
+          <option>Ghazni</option><option>Bamiyan</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div class="input-pw">
+          <input type="password" id="pw1" placeholder="Min. 8 characters" required minlength="8" />
+          <button type="button" class="toggle-pw" onclick="togglePw('pw1','eye1')"><i class="fas fa-eye" id="eye1"></i></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Confirm Password</label>
+        <div class="input-pw">
+          <input type="password" id="pw2" placeholder="Repeat password" required />
+          <button type="button" class="toggle-pw" onclick="togglePw('pw2','eye2')"><i class="fas fa-eye" id="eye2"></i></button>
+        </div>
+      </div>
+      <label class="check-label" style="font-size:.83rem;color:#555;">
+        <input type="checkbox" required />
+        I agree to the <a href="#" style="color:var(--green)">Terms of Use</a> and <a href="#" style="color:var(--green)">Privacy Policy</a>
+      </label>
+      <button type="submit" class="btn-auth">Create Free Account <i class="fas fa-arrow-right"></i></button>
+    </form>
+
+    <p class="auth-switch">Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+  <div class="auth-side">
+    <div class="auth-side-content">
+      <h2>Why Join AfghanShop?</h2>
+      <ul class="auth-benefits">
+        <li><i class="fas fa-check-circle"></i> 100% Free to post ads</li>
+        <li><i class="fas fa-check-circle"></i> Sell in minutes</li>
+        <li><i class="fas fa-check-circle"></i> Connect with local buyers</li>
+        <li><i class="fas fa-check-circle"></i> Secure messaging system</li>
+        <li><i class="fas fa-check-circle"></i> Mobile app available</li>
+        <li><i class="fas fa-check-circle"></i> 34 provinces covered</li>
+      </ul>
+      <div class="auth-stat-row">
+        <div><strong>62K+</strong><span>Active Ads</span></div>
+        <div><strong>215K+</strong><span>Members</span></div>
+        <div><strong>Free</strong><span>Always</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="globalToast"></div>
+<script>
+function handleRegister(e) {
+  e.preventDefault();
+  const p1 = document.getElementById('pw1').value;
+  const p2 = document.getElementById('pw2').value;
+  const t = document.getElementById('globalToast');
+  if (p1 !== p2) { t.textContent = 'Passwords do not match!'; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); return; }
+  t.textContent = 'Account created! Welcome to AfghanShop 🎉';
+  t.classList.add('show');
+  setTimeout(() => { t.classList.remove('show'); window.location.href = 'index.html'; }, 2200);
+}
+function togglePw(id, iconId) {
+  const inp = document.getElementById(id);
+  const ico = document.getElementById(iconId);
+  if (inp.type === 'password') { inp.type = 'text'; ico.className = 'fas fa-eye-slash'; }
+  else { inp.type = 'password'; ico.className = 'fas fa-eye'; }
+}
+document.querySelectorAll('.social-btn').forEach(b => b.addEventListener('click', () => {
+  const t = document.getElementById('globalToast');
+  t.textContent = 'Social login coming soon!';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}));
+</script>
+</body>
+</html>

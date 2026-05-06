@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — AfghanShop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #0d2b0d, #1e7e34); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .login-box { background: #fff; border-radius: 16px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+    .admin-logo { text-align: center; margin-bottom: 28px; }
+    .admin-logo .logo-text { font-size: 1.6rem; font-weight: 900; }
+    .admin-logo .logo-text span { color: #1e7e34; }
+    .admin-logo .logo-text em { color: #c0392b; font-style: normal; }
+    .admin-logo p { color: #888; font-size: .82rem; margin-top: 4px; letter-spacing: 2px; text-transform: uppercase; }
+    .admin-badge { background: #1e7e34; color: #fff; display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: .72rem; font-weight: 700; letter-spacing: 1px; margin-top: 6px; }
+    h2 { font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 20px; text-align: center; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: .82rem; font-weight: 600; color: #444; margin-bottom: 6px; }
+    .form-group label i { color: #1e7e34; margin-right: 5px; }
+    .form-group input { width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px; padding: 11px 14px; font-size: .92rem; outline: none; transition: border .2s; }
+    .form-group input:focus { border-color: #1e7e34; }
+    .pw-wrap { position: relative; }
+    .pw-wrap input { padding-right: 42px; }
+    .pw-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #aaa; }
+    .err-msg { background: #fdecea; border: 1px solid #f5c6cb; color: #c0392b; border-radius: 6px; padding: 10px 14px; font-size: .82rem; margin-bottom: 14px; display: none; }
+    .err-msg.show { display: block; }
+    .btn-login { width: 100%; background: #1e7e34; color: #fff; border: none; border-radius: 8px; padding: 13px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: background .2s; margin-top: 4px; }
+    .btn-login:hover { background: #155724; }
+    .back-link { text-align: center; margin-top: 16px; font-size: .82rem; color: #888; }
+    .back-link a { color: #1e7e34; font-weight: 600; }
+    .hint { background: #e8f5e9; border-radius: 6px; padding: 10px 14px; font-size: .78rem; color: #444; margin-top: 14px; line-height: 1.6; }
+    .hint strong { color: #1e7e34; }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="admin-logo">
+      <div class="logo-text">Afghan<span>Shop</span><em>.com</em></div>
+      <p>Control Panel</p>
+      <span class="admin-badge"><i class="fas fa-shield-alt"></i> ADMIN ACCESS</span>
+    </div>
+    <h2>Admin Login</h2>
+    <div class="err-msg" id="errMsg"><i class="fas fa-exclamation-circle"></i> Invalid username or password.</div>
+    <form onsubmit="doLogin(event)">
+      <div class="form-group">
+        <label><i class="fas fa-user-shield"></i> Admin Username</label>
+        <input type="text" id="adminUser" placeholder="Enter admin username" required />
+      </div>
+      <div class="form-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="adminPw" placeholder="Enter password" required />
+          <button type="button" class="pw-toggle" onclick="togglePw()"><i class="fas fa-eye" id="eyeIco"></i></button>
+        </div>
+      </div>
+      <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login to Dashboard</button>
+    </form>
+    <div class="hint">
+      <strong>Demo credentials:</strong><br>
+      Username: <strong>admin</strong> &nbsp;|&nbsp; Password: <strong>admin123</strong>
+    </div>
+    <div class="back-link"><a href="index.html"><i class="fas fa-arrow-left"></i> Back to AfghanShop</a></div>
+  </div>
+  <script>
+    function doLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('adminUser').value.trim();
+      const p = document.getElementById('adminPw').value;
+      if (u === 'admin' && p === 'admin123') {
+        sessionStorage.setItem('as_admin', '1');
+        window.location.href = 'admin.html';
+      } else {
+        document.getElementById('errMsg').classList.add('show');
+      }
+    }
+    function togglePw() {
+      const inp = document.getElementById('adminPw');
+      const ico = document.getElementById('eyeIco');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+      ico.className = inp.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+    }
+  </script>
+</body>
+</html>
